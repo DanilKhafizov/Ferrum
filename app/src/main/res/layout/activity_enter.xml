@@ -110,6 +110,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@drawable/enter_btn"
+                    android:onClick="enter_btn_Click"
                     />
                 <RelativeLayout
                     android:layout_width="match_parent"

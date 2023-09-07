@@ -131,7 +131,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:background="@android:color/transparent"
-                android:onClick="enter_btn_Click"
+                android:onClick="reg1_btn_Click"
                 android:text="@string/sign_in_string"
                 android:textAllCaps="false"
                 android:textColor="@color/black"

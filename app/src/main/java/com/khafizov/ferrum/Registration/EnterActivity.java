@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.khafizov.ferrum.MainActivity;
 import com.khafizov.ferrum.R;
 
 public class EnterActivity extends AppCompatActivity {
@@ -22,6 +23,11 @@ public class EnterActivity extends AppCompatActivity {
     public void reg_btn_Click(View view)
     {
         Intent intent = new Intent(EnterActivity.this, RegActivity.class);
+        startActivity(intent);
+    }
+    public void enter_btn_Click(View view)
+    {
+        Intent intent = new Intent(EnterActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

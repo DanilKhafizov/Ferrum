@@ -14,7 +14,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_welcome);
         regBtn = findViewById(R.id.reg_btn);
         enterBtn = findViewById(R.id.enter_btn);
     }
@@ -25,7 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void enter_btn_Click(View view)
+    public void reg1_btn_Click(View view)
     {
         Intent intent = new Intent(WelcomeActivity.this, EnterActivity.class);
         startActivity(intent);
