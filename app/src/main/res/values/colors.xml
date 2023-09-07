@@ -17,4 +17,5 @@
     <color name="enter_your_details_help_color">#747A80</color>
     <color name="manage_text_color">#242424</color>
     <color name ="status_bar_color">#ff86ffe2</color>
+    <color name="menu_color">#F6F6F6</color>
 </resources>
