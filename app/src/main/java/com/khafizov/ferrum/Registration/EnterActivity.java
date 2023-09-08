@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.khafizov.ferrum.MainActivity;
+import com.khafizov.ferrum.Activities.MainActivity;
 import com.khafizov.ferrum.R;
 
 public class EnterActivity extends AppCompatActivity {
