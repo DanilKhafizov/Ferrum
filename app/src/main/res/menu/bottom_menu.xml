@@ -5,17 +5,25 @@
         android:id="@+id/bottom_home"
           android:title="Главная"
           android:icon="@drawable/home_icon"
-          />
+        android:checked="true"
+        android:iconTint="@color/nav_menu_selector"/>
+
     <item
         android:title="Тренеры"
         android:icon="@drawable/trainers_icon"
-        android:id="@+id/bottom_trainers" />
+        android:iconTint="@color/nav_menu_selector"
+        android:checked="false"
+        android:id="@+id/bottom_trainers"/>
     <item
         android:title="Услуги"
         android:icon="@drawable/services_icon"
-        android:id="@+id/bottom_services" />
+        android:iconTint="@color/nav_menu_selector"
+        android:checked="false"
+        android:id="@+id/bottom_services"/>
     <item
         android:title="Профиль"
         android:icon="@drawable/profile_icon"
-        android:id="@+id/bottom_profile" />
+        android:iconTint="@color/nav_menu_selector"
+        android:checked="false"
+        android:id="@+id/bottom_profile"/>
 </menu>

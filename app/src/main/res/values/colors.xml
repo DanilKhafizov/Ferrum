@@ -19,4 +19,6 @@
     <color name ="status_bar_color">#ff86ffe2</color>
     <color name="menu_color">#F6F6F6</color>
     <color name="lavender">#8692f7</color>
+    <color name="selected_block">#4299FF</color>
+    <color name="colorIcon">#808080</color>
 </resources>
