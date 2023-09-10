@@ -24,10 +24,12 @@ public class EnterActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(EnterActivity.this, RegActivity.class);
         startActivity(intent);
+        finish();
     }
     public void enter_btn_Click(View view)
     {
         Intent intent = new Intent(EnterActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

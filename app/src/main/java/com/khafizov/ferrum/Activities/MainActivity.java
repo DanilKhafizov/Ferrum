@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_menu);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
 
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.bottom_home:

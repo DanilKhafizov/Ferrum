@@ -18,6 +18,7 @@ public class ServicesActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_menu);
         bottomNavigationView.setSelectedItemId(R.id.bottom_services);
 
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.bottom_home:

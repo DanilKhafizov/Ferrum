@@ -21,4 +21,5 @@
     <color name="lavender">#8692f7</color>
     <color name="selected_block">#4299FF</color>
     <color name="colorIcon">#808080</color>
+    <color name="blue">#0047FF</color>
 </resources>
