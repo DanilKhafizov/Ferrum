@@ -1,9 +1,11 @@
 package com.khafizov.ferrum.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.khafizov.ferrum.R;
@@ -18,6 +20,9 @@ public class ServicesActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_menu);
         bottomNavigationView.setSelectedItemId(R.id.bottom_services);
 
+        ImageButton backButton = findViewById(R.id.back_btn);
+
+        backButton.setOnClickListener(v -> {showMainActivity(); });
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -39,4 +44,11 @@ public class ServicesActivity extends AppCompatActivity {
             return false;
         });
     }
+    public void showMainActivity()
+    {
+        Intent intent = new Intent(ServicesActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
+    }
+
