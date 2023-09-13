@@ -23,7 +23,6 @@
             android:layout_marginStart="35dp"
             android:layout_marginTop="45dp"
             android:src="@drawable/back_icon"
-            android:onClick="showMainActivity"
             android:background="@android:color/transparent"/>
 
         <TextView

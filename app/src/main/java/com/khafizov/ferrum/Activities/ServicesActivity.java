@@ -1,7 +1,7 @@
 package com.khafizov.ferrum.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ public class ServicesActivity extends AppCompatActivity {
 
         ImageButton backButton = findViewById(R.id.back_btn);
 
-        backButton.setOnClickListener(v -> {showMainActivity(); });
+        backButton.setOnClickListener(v -> showMainActivity() );
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){

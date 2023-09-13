@@ -60,6 +60,10 @@
     <string name="chooseLang_text">Выберите язык:</string>
     <string name="chooseTheme_text">Выберите тему:</string>
     <string name="chooseStyle_text">Выберите стиль текста:</string>
+    <string name="changePhoto_text">Изменить фото</string>
+    <string name="apply_text">Применить</string>
+    <string name="home_text">на главную</string>
+
 
     <string-array name="languages">
         <item>Русский</item>
