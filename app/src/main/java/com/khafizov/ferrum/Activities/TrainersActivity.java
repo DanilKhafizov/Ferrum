@@ -1,9 +1,7 @@
 package com.khafizov.ferrum.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,9 +13,6 @@ import com.khafizov.ferrum.Fragments.JasonFragment;
 import com.khafizov.ferrum.Fragments.PavelFragment;
 import com.khafizov.ferrum.Fragments.SarahFragment;
 import com.khafizov.ferrum.R;
-import com.khafizov.ferrum.Registration.EnterActivity;
-import com.khafizov.ferrum.Registration.RegActivity;
-import com.khafizov.ferrum.Registration.WelcomeActivity;
 
 public class TrainersActivity extends AppCompatActivity {
 
@@ -71,17 +66,17 @@ public class TrainersActivity extends AppCompatActivity {
 
     public void pavel_card_Click(View view) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, new PavelFragment()).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_trainers_container, new PavelFragment()).addToBackStack(null).commit();
     }
 
     public void jason_card_Click(View view) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, new JasonFragment()).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_trainers_container, new JasonFragment()).addToBackStack(null).commit();
     }
 
     public void sarah_card_Click(View view) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, new SarahFragment()).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_trainers_container, new SarahFragment()).addToBackStack(null).commit();
     }
 
 
