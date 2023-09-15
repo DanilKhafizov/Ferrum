@@ -20,6 +20,7 @@ public class EnterActivity extends AppCompatActivity {
 
     }
 
+
     public void reg_btn_Click(View view)
     {
         Intent intent = new Intent(EnterActivity.this, RegActivity.class);
@@ -32,4 +33,10 @@ public class EnterActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    @Override
+    public void onBackPressed() {
+        // здесь можно выполнить нужные действия, например, закрыть текущее окно или перейти на другой экран
+        super.onBackPressed();
+    }
+
 }

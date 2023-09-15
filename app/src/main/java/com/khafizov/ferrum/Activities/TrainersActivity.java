@@ -86,6 +86,12 @@ public class TrainersActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(TrainersActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+        super.onBackPressed();
+    }
 
 }

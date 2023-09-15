@@ -61,7 +61,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        // здесь можно выполнить нужные действия, например, закрыть текущее окно или перейти на другой экран
+        super.onBackPressed();
+    }
 
 
     }

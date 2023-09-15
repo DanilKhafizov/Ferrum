@@ -14,4 +14,9 @@ public class RegActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reg);
 
     }
+    @Override
+    public void onBackPressed() {
+        // здесь можно выполнить нужные действия, например, закрыть текущее окно или перейти на другой экран
+        super.onBackPressed();
+    }
 }
