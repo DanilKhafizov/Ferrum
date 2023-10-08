@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1061055288671",
+    "firebase_url": "https://ferrum-4d81b-default-rtdb.firebaseio.com",
+    "project_id": "ferrum-4d81b",
+    "storage_bucket": "ferrum-4d81b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061055288671:android:50084a7ceacaf1f0b4d2ea",
+        "android_client_info": {
+          "package_name": "com.khafizov.ferrum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw30TKuH3TuyJwfnXMEl3i83582TH63pE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
