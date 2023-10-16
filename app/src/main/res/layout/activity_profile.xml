@@ -17,6 +17,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
+
+
         <ImageButton
             android:id="@+id/back_btn"
             android:layout_width="50dp"
@@ -39,6 +41,12 @@
 
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
     <ImageButton
         android:id="@+id/user_im_btn"
@@ -96,31 +104,32 @@
         android:src="@drawable/user"
         android:layout_marginStart="30dp"/>
 
-    <EditText
-        android:id="@+id/surname_ed"
+    <TextView
+        android:id="@+id/tv_surname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/user_icon"
         app:layout_constraintTop_toBottomOf="@+id/pers_data_tv"
         android:text="@string/surname_text"
+        android:textSize="18dp"
         android:layout_marginTop="10dp"
         android:inputType="none"
         android:focusable="false"
         android:layout_marginStart="30dp"
-        android:textColor="@color/black"
-        android:background="@android:color/transparent"/>
+        android:textColor="@color/black" />
 
-    <EditText
-        android:id="@+id/name_ed"
+    <TextView
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/user_icon"
-        app:layout_constraintTop_toBottomOf="@+id/surname_ed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_surname"
         android:text="@string/name_text"
         android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:inputType="none"
         android:focusable="false"
+        android:textSize="18dp"
         android:textColor="@color/black"
         android:background="@android:color/transparent"/>
 
@@ -135,17 +144,18 @@
         android:layout_marginBottom="13dp"
         android:layout_marginStart="30dp"/>
 
-    <EditText
-        android:id="@+id/birthday_ed"
+    <TextView
+        android:id="@+id/tv_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/user_icon"
-        app:layout_constraintTop_toBottomOf="@+id/name_ed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
         android:text="@string/birthday_text"
         android:inputType="none"
         android:focusable="false"
         android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
+        android:textSize="18dp"
         android:textColor="@color/black"
         android:background="@android:color/transparent"/>
 
@@ -164,7 +174,7 @@
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthday_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_birthday" />
 
     <ImageView
         android:id="@+id/email_icon"
@@ -176,13 +186,14 @@
         android:layout_marginTop="14dp"
         android:layout_marginStart="30dp"/>
 
-    <EditText
-        android:id="@+id/email_ed"
+    <TextView
+        android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/email_icon"
         app:layout_constraintTop_toBottomOf="@+id/contact_details_tv"
         android:text="@string/email_text"
+        android:textSize="18dp"
         android:textColor="@color/black"
         android:inputType="none"
         android:focusable="false"
@@ -202,16 +213,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_icon" />
 
-    <EditText
-        android:id="@+id/phone_ed"
+    <TextView
+        android:id="@+id/tv_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintLeft_toRightOf="@id/email_icon"
-        app:layout_constraintTop_toBottomOf="@+id/email_ed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email"
         android:text="@string/phone_text"
         android:layout_marginTop="20dp"
         android:inputType="none"
+        android:textSize="18dp"
         android:focusable="false"
         android:layout_marginStart="30dp"
         android:background="@android:color/transparent"/>
@@ -231,7 +243,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
     <ImageView
         android:id="@+id/language_icon"
@@ -243,8 +255,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_tv" />
 
-    <EditText
-        android:id="@+id/language_ed"
+    <TextView
+        android:id="@+id/tv_language"
         android:layout_width="wrap_content"
         android:textColor="@color/black"
         android:layout_height="wrap_content"
@@ -253,6 +265,7 @@
         app:layout_constraintLeft_toRightOf="@id/language_icon"
         app:layout_constraintTop_toBottomOf="@+id/settings_tv"
         android:text="@string/language_text"
+        android:textSize="18dp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:background="@android:color/transparent"/>
@@ -265,18 +278,19 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/dark_theme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/language_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_language" />
 
-    <EditText
-        android:id="@+id/dark_theme_ed"
+    <TextView
+        android:id="@+id/tv_dark_theme"
         android:textColor="@color/black"
         android:inputType="none"
         android:focusable="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/language_icon"
-        app:layout_constraintTop_toBottomOf="@+id/language_ed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_language"
         android:text="@string/dark_theme_text"
+        android:textSize="18dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
         android:background="@android:color/transparent"/>
@@ -289,19 +303,20 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/textstyle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dark_theme_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_dark_theme" />
 
-    <EditText
-        android:id="@+id/textStyle_ed"
+    <TextView
+        android:id="@+id/tv_textStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintLeft_toRightOf="@id/language_icon"
-        app:layout_constraintTop_toBottomOf="@+id/dark_theme_ed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dark_theme"
         android:text="@string/textStyle_text"
         android:inputType="none"
         android:focusable="false"
         android:layout_marginTop="20dp"
+        android:textSize="18dp"
         android:layout_marginStart="30dp"
         android:background="@android:color/transparent"/>
 
@@ -332,7 +347,7 @@
         android:layout_marginBottom="5dp"
         android:onClick="showSettingsActivity"
         app:layout_constraintStart_toStartOf="@+id/dark_theme_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/dark_theme_ed" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_dark_theme" />
 
     <ImageButton
         android:id="@+id/go_style_im_btn"
@@ -347,7 +362,7 @@
         android:layout_marginBottom="5dp"
         android:onClick="showSettingsActivity"
         app:layout_constraintStart_toStartOf="@+id/textStyle_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/textStyle_ed" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_textStyle" />
 
 
 

@@ -75,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_btn" />
 
     <EditText
-        android:id="@+id/name_ed"
+        android:id="@+id/tv_name"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -96,10 +96,10 @@
         android:text="@string/surname_text"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     <EditText
-        android:id="@+id/surname_ed"
+        android:id="@+id/tv_surname"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -120,10 +120,10 @@
         android:text="@string/birthday_text"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surname_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_surname" />
 
     <EditText
-        android:id="@+id/birthday_ed"
+        android:id="@+id/tv_birthday"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -144,10 +144,10 @@
         android:text="@string/email_text"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthday_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_birthday" />
 
     <EditText
-        android:id="@+id/email_ed"
+        android:id="@+id/tv_email"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -168,10 +168,10 @@
         android:text="@string/phone_text"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
     <EditText
-        android:id="@+id/phone_ed"
+        android:id="@+id/tv_phone"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -191,7 +191,7 @@
         android:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_ed" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

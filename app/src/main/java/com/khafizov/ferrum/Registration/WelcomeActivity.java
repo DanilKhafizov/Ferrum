@@ -10,13 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.khafizov.ferrum.R;
 
 public class WelcomeActivity extends AppCompatActivity {
-    Button regBtn, enterBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        regBtn = findViewById(R.id.reg_btn);
-        enterBtn = findViewById(R.id.enter_btn);
+
     }
 
     public void reg_btn_Click(View view)
