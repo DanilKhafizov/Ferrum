@@ -49,12 +49,12 @@ public class ProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
-            loadAllUsers();
             loadUserProfile();
+            loadAllUsers();
 
 
-//        FirebaseUser user = mAuth.getCurrentUser();
+
+   //     FirebaseUser user = mAuth.getCurrentUser();
 //        if (user != null) {
 //            String surname = user.getDisplayName();
 //            String name = user.getDisplayName();
@@ -127,15 +127,27 @@ public class ProfileActivity extends AppCompatActivity {
             protected User doInBackground(Void... voids) {
                 AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "FerrumDatabase").build();
                 UserDao userDao = appDatabase.userDao();
-                return userDao.getLastRegisteredUser();
+
+                // Получаем идентификатор текущего пользователя из Firebase Authentication
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                String userEmail = currentUser.getEmail();
+
+                // Получаем пользователя из Room с учетом идентификатора
+                return userDao.getUserByEmail(userEmail);
             }
 
             @Override
             protected void onPostExecute(User user) {
                 if (user != null) {
+                    // Устанавливаем значения в EditText
                     tvName.setText(user.getName());
                     tvSurname.setText(user.getSurname());
-                    tvEmail.setText(user.getEmail());
+
+                    // Если у вас есть доступ к объекту FirebaseUser, вы можете использовать его для получения почты пользователя
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    if (currentUser != null) {
+                        tvEmail.setText(currentUser.getEmail());
+                    }
                 }
             }
         };

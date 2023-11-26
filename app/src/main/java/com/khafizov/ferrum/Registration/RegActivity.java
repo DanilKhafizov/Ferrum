@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.khafizov.ferrum.Database.EmployeeDao;
 import com.khafizov.ferrum.Database.User;
 import com.khafizov.ferrum.Database.UserDao;
 import com.khafizov.ferrum.R;
+
 
 import java.util.List;
 
@@ -62,17 +64,10 @@ public class RegActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(name).build();
                         if (user != null) {
-                            user.updateProfile(profileUpdates)
-                                    .addOnCompleteListener(profileUpdateTask -> {
-                                        if (profileUpdateTask.isSuccessful()) {
-                                            saveUserToDatabase(name, surname, email);
-                                            startActivity(new Intent(RegActivity.this, MainActivity.class));
-                                            finish();
-                                        }
-                                    });
+                            saveUserToDatabase(name, surname, email);
+                            startActivity(new Intent(RegActivity.this, MainActivity.class));
+                            finish();
                         }
                         SharedPreferences settings = getSharedPreferences("AppSettings", MODE_PRIVATE);
                         SharedPreferences.Editor editor = settings.edit();
@@ -102,6 +97,10 @@ public class RegActivity extends AppCompatActivity {
 
                 // Сохранение пользователя в базе данных
                 userDao.insert(user);
+                Log.d("SaveUser", "Name: " + user.getName());
+                Log.d("SaveUser", "Surname: " + user.getSurname());
+                Log.d("SaveUser", "Email: " + user.getEmail());
+                Log.d("SaveUser", "Id: " + user.getId());
                 return null;
             }
         };

@@ -13,6 +13,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.khafizov.ferrum.Activities.MainActivity;
+import com.khafizov.ferrum.Database.AppDatabase;
+import com.khafizov.ferrum.Database.User;
+import com.khafizov.ferrum.Database.UserDao;
 import com.khafizov.ferrum.R;
 
 public class EnterActivity extends AppCompatActivity {
@@ -48,6 +51,7 @@ public class EnterActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+
                         startActivity(new Intent(com.khafizov.ferrum.Registration.EnterActivity.this, MainActivity.class));
                         finish();
                     } else {
@@ -66,6 +70,7 @@ public class EnterActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 
     public void reg_btn_Click(View view)

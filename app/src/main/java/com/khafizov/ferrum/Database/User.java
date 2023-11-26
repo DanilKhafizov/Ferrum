@@ -39,8 +39,6 @@ import androidx.room.PrimaryKey;
             this.surname = surname;
         }
 
-
-
         public String getEmail() {
             return email;
         }
