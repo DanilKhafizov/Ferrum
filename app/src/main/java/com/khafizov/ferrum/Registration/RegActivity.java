@@ -1,5 +1,6 @@
 package com.khafizov.ferrum.Registration;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -101,17 +102,12 @@ public class RegActivity extends AppCompatActivity {
                 Log.d("SaveUser", "Surname: " + user.getSurname());
                 Log.d("SaveUser", "Email: " + user.getEmail());
                 Log.d("SaveUser", "Id: " + user.getId());
+
                 return null;
             }
         };
         saveUserTask.execute();
     }
-
-
-
-
-
-
 
 
     @Override

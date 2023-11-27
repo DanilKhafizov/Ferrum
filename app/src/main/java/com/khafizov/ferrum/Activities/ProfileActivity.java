@@ -4,12 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -74,7 +79,25 @@ public class ProfileActivity extends AppCompatActivity {
 //            tvPhone.setText(phone);
 //        }
 
-        birthdayAdd.setOnClickListener(v -> showDatePickerDialog());
+       birthdayAdd.setOnClickListener(v -> showDatePickerDialog());
+
+        phoneAdd.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+            builder.setTitle("Введите номер телефона");
+
+            final EditText input = new EditText(ProfileActivity.this);
+            input.setInputType(InputType.TYPE_CLASS_PHONE);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", (dialog, which) -> {
+                String phoneNumber = input.getText().toString();
+                tvPhone.setText(phoneNumber);
+            });
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+            builder.show();
+        });
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_menu);
         bottomNavigationView.setSelectedItemId(R.id.bottom_profile);
@@ -104,7 +127,24 @@ public class ProfileActivity extends AppCompatActivity {
             }
             return false;
         });
+
     }
+
+    private void showDatePickerDialog() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                tvBirthday.setText(selectedDate);
+            }
+        };
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this, dateSetListener, 2022, 0, 1);
+        datePickerDialog.show();
+    }
+
+
+
     private void loadAllUsers() {
         AsyncTask<Void, Void, List<User>> loadUsersTask = new AsyncTask<Void, Void, List<User>>() {
             @Override
@@ -128,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadUsersTask.execute();
     }
-    FirebaseUser currentUser = mAuth.getCurrentUser();
+
     private void loadUserProfile() {
         AsyncTask<Void, Void, User> loadUserTask = new AsyncTask<Void, Void, User>() {
             @Override
@@ -139,7 +179,6 @@ public class ProfileActivity extends AppCompatActivity {
                 // Получаем идентификатор текущего пользователя из Firebase Authentication
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 String userEmail = currentUser.getEmail();
-
                 // Получаем пользователя из Room с учетом идентификатора
                 return userDao.getUserByEmail(userEmail);
             }
@@ -152,7 +191,7 @@ public class ProfileActivity extends AppCompatActivity {
                     tvSurname.setText(user.getSurname());
 
                     // Если у вас есть доступ к объекту FirebaseUser, вы можете использовать его для получения почты пользователя
-
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
                     if (currentUser != null) {
                         tvEmail.setText(currentUser.getEmail());
                     }
@@ -163,36 +202,36 @@ public class ProfileActivity extends AppCompatActivity {
         loadUserTask.execute();
     }
 
-    private void showDatePickerDialog() {
-        // Получите текущую дату для установки значения по умолчанию в календаре
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        // Создайте слушатель для обработки выбора даты
-        DatePickerDialog.OnDateSetListener dateSetListener = (view, year1, month1, dayOfMonth) -> {
-            // Преобразуйте выбранную дату в строку в нужном формате
-            String selectedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
-
-            // Получите экземпляр базы данных Room
-//            AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
-
-            // Получите текущего пользователя из базы данных
-
-//                User user = appDatabase.userDao().getCurrentUser();
-
-            // Обновите поле "dateOfBirth" в объекте пользователя
-//            user.setBirthday(selectedDate);
-
-            // Сохраните изменения в базе данных Room
-//            appDatabase.userDao().updateUser(user);
-        };
-
-        // Создайте диалоговое окно календаря и установите слушатель выбора даты
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
-        datePickerDialog.show();
-    }
+//    private void showDatePickerDialog() {
+//        // Получите текущую дату для установки значения по умолчанию в календаре
+//        Calendar calendar = Calendar.getInstance();
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH);
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//        // Создайте слушатель для обработки выбора даты
+//        DatePickerDialog.OnDateSetListener dateSetListener = (view, year1, month1, dayOfMonth) -> {
+//            // Преобразуйте выбранную дату в строку в нужном формате
+//            String selectedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
+//
+//            // Получите экземпляр базы данных Room
+////            AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
+//
+//            // Получите текущего пользователя из базы данных
+//
+////                User user = appDatabase.userDao().getCurrentUser();
+//
+//            // Обновите поле "dateOfBirth" в объекте пользователя
+////            user.setBirthday(selectedDate);
+//
+//            // Сохраните изменения в базе данных Room
+////            appDatabase.userDao().updateUser(user);
+//        };
+//
+//        // Создайте диалоговое окно календаря и установите слушатель выбора даты
+//        DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
+//        datePickerDialog.show();
+//    }
 
     public void showSettingsActivity()
     {

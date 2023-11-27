@@ -3,14 +3,19 @@ package com.khafizov.ferrum.Database;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
 
-    @Entity(tableName = "User")
+
+@Entity(tableName = "User")
     public class User {
         @PrimaryKey(autoGenerate = true)
         private int id;
         private String name;
         private String surname;
         private String email;
+       private String birthday;
+       private String phone;
+
 
         public User() {
         }
@@ -46,5 +51,21 @@ import androidx.room.PrimaryKey;
         public void setEmail(String email) {
             this.email = email;
         }
-    }
+
+   public String getBirthday() {
+       return birthday;
+   }
+
+   public void setBirthday(String birthday) {
+       this.birthday = birthday;
+   }
+
+   public String getPhone() {
+       return phone;
+   }
+
+   public void setPhone(String phone) {
+       this.phone = phone;
+   }
+}
 
