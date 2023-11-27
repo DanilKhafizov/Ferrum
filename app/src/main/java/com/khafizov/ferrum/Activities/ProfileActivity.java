@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -21,12 +23,14 @@ import com.khafizov.ferrum.R;
 
 import org.w3c.dom.Text;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView tvSurname, tvName, tvBirthday, tvEmail, tvPhone, TextView;
-    private ImageButton langBtn, themeBtn, styleBtn, backBtn;
+    private ImageButton langBtn, themeBtn, styleBtn, backBtn, birthdayAdd, phoneAdd;
     private Button editBtn;
     private FirebaseAuth mAuth;
     @Override
@@ -45,6 +49,8 @@ public class ProfileActivity extends AppCompatActivity {
         styleBtn = findViewById(R.id.go_style_im_btn);
         editBtn = findViewById(R.id.edit_btn);
         backBtn = findViewById(R.id.back_btn);
+        birthdayAdd = findViewById(R.id.birthday_add_im_btn);
+        phoneAdd = findViewById(R.id.phone_add_im_btn);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -68,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
 //            tvPhone.setText(phone);
 //        }
 
+        birthdayAdd.setOnClickListener(v -> showDatePickerDialog());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_menu);
         bottomNavigationView.setSelectedItemId(R.id.bottom_profile);
@@ -121,6 +128,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadUsersTask.execute();
     }
+    FirebaseUser currentUser = mAuth.getCurrentUser();
     private void loadUserProfile() {
         AsyncTask<Void, Void, User> loadUserTask = new AsyncTask<Void, Void, User>() {
             @Override
@@ -144,7 +152,7 @@ public class ProfileActivity extends AppCompatActivity {
                     tvSurname.setText(user.getSurname());
 
                     // Если у вас есть доступ к объекту FirebaseUser, вы можете использовать его для получения почты пользователя
-                    FirebaseUser currentUser = mAuth.getCurrentUser();
+
                     if (currentUser != null) {
                         tvEmail.setText(currentUser.getEmail());
                     }
@@ -154,6 +162,38 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadUserTask.execute();
     }
+
+    private void showDatePickerDialog() {
+        // Получите текущую дату для установки значения по умолчанию в календаре
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Создайте слушатель для обработки выбора даты
+        DatePickerDialog.OnDateSetListener dateSetListener = (view, year1, month1, dayOfMonth) -> {
+            // Преобразуйте выбранную дату в строку в нужном формате
+            String selectedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
+
+            // Получите экземпляр базы данных Room
+//            AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
+
+            // Получите текущего пользователя из базы данных
+
+//                User user = appDatabase.userDao().getCurrentUser();
+
+            // Обновите поле "dateOfBirth" в объекте пользователя
+//            user.setBirthday(selectedDate);
+
+            // Сохраните изменения в базе данных Room
+//            appDatabase.userDao().updateUser(user);
+        };
+
+        // Создайте диалоговое окно календаря и установите слушатель выбора даты
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
+        datePickerDialog.show();
+    }
+
     public void showSettingsActivity()
     {
         Intent intent = new Intent(ProfileActivity.this, SettingsActivity.class);
