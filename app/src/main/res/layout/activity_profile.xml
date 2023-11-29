@@ -77,6 +77,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_im_btn" />
 
+    <Button
+        android:id="@+id/load_users_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:text="Показать список пользователей"
+        android:textSize="12dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        app:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_textStyle"/>
+
+
     <TextView
         android:id="@+id/pers_data_tv"
         android:layout_width="match_parent"

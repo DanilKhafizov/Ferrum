@@ -81,6 +81,8 @@ public class RegActivity extends AppCompatActivity {
                 });
     }
 
+
+
     private void saveUserToDatabase(String name, String surname, String email) {
 
         AsyncTask<Void, Void, Void> saveUserTask = new AsyncTask<Void, Void, Void>() {

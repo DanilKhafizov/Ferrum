@@ -15,6 +15,8 @@ import java.util.Date;
         private String email;
        private String birthday;
        private String phone;
+       private String role;
+       private String photoUrl;
 
 
         public User() {
@@ -67,5 +69,21 @@ import java.util.Date;
    public void setPhone(String phone) {
        this.phone = phone;
    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 }
 

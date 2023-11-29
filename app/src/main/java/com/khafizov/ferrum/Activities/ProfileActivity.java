@@ -6,14 +6,12 @@ import androidx.room.Room;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,17 +24,13 @@ import com.khafizov.ferrum.Database.User;
 import com.khafizov.ferrum.Database.UserDao;
 import com.khafizov.ferrum.R;
 
-import org.w3c.dom.Text;
-
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView tvSurname, tvName, tvBirthday, tvEmail, tvPhone, TextView;
     private ImageButton langBtn, themeBtn, styleBtn, backBtn, birthdayAdd, phoneAdd;
-    private Button editBtn;
+    private Button editBtn, loadUsersBtn;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +50,13 @@ public class ProfileActivity extends AppCompatActivity {
         backBtn = findViewById(R.id.back_btn);
         birthdayAdd = findViewById(R.id.birthday_add_im_btn);
         phoneAdd = findViewById(R.id.phone_add_im_btn);
+        loadUsersBtn = findViewById(R.id.load_users_btn);
 
         mAuth = FirebaseAuth.getInstance();
 
 
             loadUserProfile();
-            loadAllUsers();
+
 
 
 
@@ -79,22 +74,24 @@ public class ProfileActivity extends AppCompatActivity {
 //            tvPhone.setText(phone);
 //        }
 
+        loadUsersBtn.setOnClickListener(v -> loadAllUsers());
+
        birthdayAdd.setOnClickListener(v -> showDatePickerDialog());
 
         phoneAdd.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
             builder.setTitle("Введите номер телефона");
-
             final EditText input = new EditText(ProfileActivity.this);
             input.setInputType(InputType.TYPE_CLASS_PHONE);
             builder.setView(input);
-
             builder.setPositiveButton("OK", (dialog, which) -> {
                 String phoneNumber = input.getText().toString();
                 tvPhone.setText(phoneNumber);
+                // Сохранить значение в БД Room
+                String userEmail = mAuth.getCurrentUser().getEmail();
+                updateUserInfo(userEmail, null, phoneNumber);
             });
             builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
             builder.show();
         });
 
@@ -129,22 +126,17 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
     }
-
     private void showDatePickerDialog() {
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-                tvBirthday.setText(selectedDate);
-            }
+        DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, dayOfMonth) -> {
+            String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+            tvBirthday.setText(selectedDate);
+            // Сохранить значение в БД Room
+            String userEmail = mAuth.getCurrentUser().getEmail();
+            updateUserInfo(userEmail, selectedDate, null);
         };
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this, dateSetListener, 2022, 0, 1);
         datePickerDialog.show();
     }
-
-
-
     private void loadAllUsers() {
         AsyncTask<Void, Void, List<User>> loadUsersTask = new AsyncTask<Void, Void, List<User>>() {
             @Override
@@ -153,19 +145,19 @@ public class ProfileActivity extends AppCompatActivity {
                 UserDao userDao = appDatabase.userDao();
                 return userDao.getAllUsers();
             }
-
             @Override
             protected void onPostExecute(List<User> userList) {
                 if (userList != null && !userList.isEmpty()) {
                     StringBuilder usersText = new StringBuilder();
                     for (User user : userList) {
-                        usersText.append(user.getName()).append(" ").append(user.getSurname()).append("\n");
+                        usersText.append(user.getId()).append(" ").append(user.getName()).append(" ").append(user.getSurname()).append(" ")
+                                .append(user.getBirthday()).append(" ") .append(user.getPhone()).append(" ")
+                                .append(user.getEmail()).append("\n");
                     }
                     TextView.setText(usersText.toString());
                 }
             }
         };
-
         loadUsersTask.execute();
     }
 
@@ -182,13 +174,21 @@ public class ProfileActivity extends AppCompatActivity {
                 // Получаем пользователя из Room с учетом идентификатора
                 return userDao.getUserByEmail(userEmail);
             }
-
             @Override
             protected void onPostExecute(User user) {
                 if (user != null) {
-                    // Устанавливаем значения в EditText
+
+                    // Устанавливаем значения в TextView
                     tvName.setText(user.getName());
                     tvSurname.setText(user.getSurname());
+                    if(user.getBirthday() != null)
+                    {
+                        tvBirthday.setText(user.getBirthday());
+                    }
+                    if(user.getPhone() != null)
+                    {
+                        tvPhone.setText(user.getPhone());
+                    }
 
                     // Если у вас есть доступ к объекту FirebaseUser, вы можете использовать его для получения почты пользователя
                     FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -198,40 +198,35 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         };
-
         loadUserTask.execute();
     }
 
-//    private void showDatePickerDialog() {
-//        // Получите текущую дату для установки значения по умолчанию в календаре
-//        Calendar calendar = Calendar.getInstance();
-//        int year = calendar.get(Calendar.YEAR);
-//        int month = calendar.get(Calendar.MONTH);
-//        int day = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//        // Создайте слушатель для обработки выбора даты
-//        DatePickerDialog.OnDateSetListener dateSetListener = (view, year1, month1, dayOfMonth) -> {
-//            // Преобразуйте выбранную дату в строку в нужном формате
-//            String selectedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
-//
-//            // Получите экземпляр базы данных Room
-////            AppDatabase appDatabase = AppDatabase.getInstance(getApplicationContext());
-//
-//            // Получите текущего пользователя из базы данных
-//
-////                User user = appDatabase.userDao().getCurrentUser();
-//
-//            // Обновите поле "dateOfBirth" в объекте пользователя
-////            user.setBirthday(selectedDate);
-//
-//            // Сохраните изменения в базе данных Room
-////            appDatabase.userDao().updateUser(user);
-//        };
-//
-//        // Создайте диалоговое окно календаря и установите слушатель выбора даты
-//        DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
-//        datePickerDialog.show();
-//    }
+    public void updateUserInfo(String email, String birthday, String phone) {
+        AsyncTask.execute(() -> {
+            AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "FerrumDatabase").build();
+            UserDao userDao = appDatabase.userDao();
+
+            User user = userDao.getUserByEmail(email);
+            if (user != null) {
+                if (birthday != null) {
+                    user.setBirthday(birthday);
+                }
+                if (phone != null) {
+                    user.setPhone(phone);
+                }
+                userDao.updateUser(user);
+            }
+            Log.d("SaveUser", "Name: " + user.getName());
+            Log.d("SaveUser", "Surname: " + user.getSurname());
+            Log.d("SaveUser", "Email: " + user.getEmail());
+            Log.d("SaveUser", "Birthday: " + user.getBirthday());
+            Log.d("SaveUser", "Phone: " + user.getPhone());
+
+        });
+
+    }
+
+
 
     public void showSettingsActivity()
     {
