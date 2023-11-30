@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.UsersListActivity">
-
-    <com.khafizov.ferrum.UserCardView
-        android:id="@+id/user_card_view"
+    tools:context=".Activities.UsersListActivity"
+    android:background="@drawable/bg_main">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="match_parent" />
 </LinearLayout>

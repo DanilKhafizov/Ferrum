@@ -74,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
 //            tvPhone.setText(phone);
 //        }
 
-        loadUsersBtn.setOnClickListener(v -> loadAllUsers());
+        loadUsersBtn.setOnClickListener(v -> showUsersListActivity());
 
        birthdayAdd.setOnClickListener(v -> showDatePickerDialog());
 
@@ -137,29 +137,7 @@ public class ProfileActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this, dateSetListener, 2022, 0, 1);
         datePickerDialog.show();
     }
-    private void loadAllUsers() {
-        AsyncTask<Void, Void, List<User>> loadUsersTask = new AsyncTask<Void, Void, List<User>>() {
-            @Override
-            protected List<User> doInBackground(Void... voids) {
-                AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "FerrumDatabase").build();
-                UserDao userDao = appDatabase.userDao();
-                return userDao.getAllUsers();
-            }
-            @Override
-            protected void onPostExecute(List<User> userList) {
-                if (userList != null && !userList.isEmpty()) {
-                    StringBuilder usersText = new StringBuilder();
-                    for (User user : userList) {
-                        usersText.append(user.getId()).append(" ").append(user.getName()).append(" ").append(user.getSurname()).append(" ")
-                                .append(user.getBirthday()).append(" ") .append(user.getPhone()).append(" ")
-                                .append(user.getEmail()).append("\n");
-                    }
-                    TextView.setText(usersText.toString());
-                }
-            }
-        };
-        loadUsersTask.execute();
-    }
+
 
     private void loadUserProfile() {
         AsyncTask<Void, Void, User> loadUserTask = new AsyncTask<Void, Void, User>() {
@@ -234,6 +212,14 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void showUsersListActivity()
+    {
+        Intent intent = new Intent(ProfileActivity.this, UsersListActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     public void showEditProfileActivity()
     {
