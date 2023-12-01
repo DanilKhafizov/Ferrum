@@ -36,8 +36,8 @@
             android:src="@drawable/share_icon" />
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/user_im_btn"
+    <ImageView
+        android:id="@+id/user_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -49,7 +49,7 @@
         android:background="@android:color/transparent"/>
 
     <Button
-        android:id="@+id/edit_btn"
+        android:id="@+id/edit_image_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/changePhoto_text"
@@ -61,7 +61,7 @@
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_im_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/user_image" />
 
     <TextView
         android:id="@+id/name_tv"
@@ -72,10 +72,10 @@
         android:text="@string/name_text"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_image_btn" />
 
     <EditText
-        android:id="@+id/tv_name"
+        android:id="@+id/new_name_ed"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -96,10 +96,10 @@
         android:text="@string/surname_text"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/new_name_ed" />
 
     <EditText
-        android:id="@+id/tv_surname"
+        android:id="@+id/new_surname_ed"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -120,16 +120,18 @@
         android:text="@string/birthday_text"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_surname" />
+        app:layout_constraintTop_toBottomOf="@+id/new_surname_ed" />
 
     <EditText
-        android:id="@+id/tv_birthday"
+        android:id="@+id/new_birthday_ed"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:textColor="@color/black"
         android:paddingStart="5dp"
         android:textSize="15sp"
+        android:inputType="none"
+        android:focusable="false"
         android:background="@drawable/bg_profile_ed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,10 +146,10 @@
         android:text="@string/phone_text"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_birthday" />
+        app:layout_constraintTop_toBottomOf="@+id/new_birthday_ed" />
 
     <EditText
-        android:id="@+id/tv_phone"
+        android:id="@+id/new_phone_ed"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
@@ -161,6 +163,7 @@
 
 
     <Button
+        android:id="@+id/save_btn"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -168,7 +171,7 @@
         android:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/new_phone_ed" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

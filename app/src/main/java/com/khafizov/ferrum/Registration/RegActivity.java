@@ -88,6 +88,7 @@ public class RegActivity extends AppCompatActivity {
         AsyncTask<Void, Void, Void> saveUserTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
+
                 // Инициализация базы данных и получение соответствующего DAO
                 AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "FerrumDatabase").build();
                 UserDao userDao = appDatabase.userDao();

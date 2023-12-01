@@ -10,7 +10,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,11 +25,9 @@ import com.khafizov.ferrum.Database.User;
 import com.khafizov.ferrum.Database.UserDao;
 import com.khafizov.ferrum.R;
 
-import java.util.List;
-
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView tvSurname, tvName, tvBirthday, tvEmail, tvPhone, TextView;
+    public static TextView tvSurname, tvName, tvBirthday, tvEmail, tvPhone, TextView;
     private ImageButton langBtn, themeBtn, styleBtn, backBtn, birthdayAdd, phoneAdd;
     private Button editBtn, loadUsersBtn;
     private FirebaseAuth mAuth;
@@ -37,12 +36,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        tvSurname = findViewById(R.id.tv_surname);
-        tvName = findViewById(R.id.tv_name);
+        tvSurname = findViewById(R.id.surname_tv);
+        tvName = findViewById(R.id.name_tv);
         TextView = findViewById(R.id.textView);
-        tvBirthday = findViewById(R.id.tv_birthday);
+        tvBirthday = findViewById(R.id.birthday_tv);
         tvEmail = findViewById(R.id.tv_email);
-        tvPhone = findViewById(R.id.tv_phone);
+        tvPhone = findViewById(R.id.phone_tv);
         langBtn = findViewById(R.id.go_lang_im_btn);
         themeBtn = findViewById(R.id.go_theme_im_btn);
         styleBtn = findViewById(R.id.go_style_im_btn);
@@ -76,7 +75,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadUsersBtn.setOnClickListener(v -> showUsersListActivity());
 
-       birthdayAdd.setOnClickListener(v -> showDatePickerDialog());
+       birthdayAdd.setOnClickListener(v -> {
+           showDatePickerDialog();
+           birthdayAdd.setVisibility(View.GONE);
+    });
 
         phoneAdd.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
@@ -86,7 +88,10 @@ public class ProfileActivity extends AppCompatActivity {
             builder.setView(input);
             builder.setPositiveButton("OK", (dialog, which) -> {
                 String phoneNumber = input.getText().toString();
-                tvPhone.setText(phoneNumber);
+                if (!TextUtils.isEmpty(phoneNumber)) {
+                    tvPhone.setText(phoneNumber);
+                    phoneAdd.setVisibility(View.GONE); // Скрыть кнопку "+"
+                }
                 // Сохранить значение в БД Room
                 String userEmail = mAuth.getCurrentUser().getEmail();
                 updateUserInfo(userEmail, null, phoneNumber);
@@ -129,13 +134,37 @@ public class ProfileActivity extends AppCompatActivity {
     private void showDatePickerDialog() {
         DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, dayOfMonth) -> {
             String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+//            String birthdayText = tvBirthday.getText().toString();
             tvBirthday.setText(selectedDate);
-            // Сохранить значение в БД Room
-            String userEmail = mAuth.getCurrentUser().getEmail();
-            updateUserInfo(userEmail, selectedDate, null);
+//            if (!birthdayText.equals(getResources().getString(R.string.birthday_text))) {
+                // Сохранить значение в БД Room
+                String userEmail = mAuth.getCurrentUser().getEmail();
+                updateUserInfo(userEmail, selectedDate, null);
+//            }
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this, dateSetListener, 2022, 0, 1);
+        datePickerDialog.setOnCancelListener(dialog -> {
+            birthdayAdd.setVisibility(View.VISIBLE); // Показать кнопку "+"
+        });
         datePickerDialog.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Проверка даты рождения
+        String birthdayText = tvBirthday.getText().toString();
+        String phoneText = tvPhone.getText().toString();
+        if (!birthdayText.equals(getResources().getString(R.string.birthday_text))) {
+            birthdayAdd.setVisibility(View.GONE); // Скрыть кнопку "+"
+        } else {
+            birthdayAdd.setVisibility(View.VISIBLE); // Показать кнопку "+"
+        }
+        if (!phoneText.equals(getResources().getString(R.string.phone_text))) {
+            phoneAdd.setVisibility(View.GONE); // Скрыть кнопку "+"
+        } else {
+            phoneAdd.setVisibility(View.VISIBLE); // Показать кнопку "+"
+        }
     }
 
 
@@ -162,11 +191,15 @@ public class ProfileActivity extends AppCompatActivity {
                     if(user.getBirthday() != null)
                     {
                         tvBirthday.setText(user.getBirthday());
+                        birthdayAdd.setVisibility(View.GONE); // Скрыть кнопку "+"
                     }
+                    else{onResume();}
                     if(user.getPhone() != null)
                     {
                         tvPhone.setText(user.getPhone());
+                        phoneAdd.setVisibility(View.GONE); // Скрыть кнопку "+"
                     }
+                    else{onResume();}
 
                     // Если у вас есть доступ к объекту FirebaseUser, вы можете использовать его для получения почты пользователя
                     FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -183,7 +216,6 @@ public class ProfileActivity extends AppCompatActivity {
         AsyncTask.execute(() -> {
             AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "FerrumDatabase").build();
             UserDao userDao = appDatabase.userDao();
-
             User user = userDao.getUserByEmail(email);
             if (user != null) {
                 if (birthday != null) {
@@ -194,11 +226,12 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 userDao.updateUser(user);
             }
-            Log.d("SaveUser", "Name: " + user.getName());
-            Log.d("SaveUser", "Surname: " + user.getSurname());
-            Log.d("SaveUser", "Email: " + user.getEmail());
-            Log.d("SaveUser", "Birthday: " + user.getBirthday());
-            Log.d("SaveUser", "Phone: " + user.getPhone());
+
+//            Log.d("SaveUser", "Name: " + user.getName());
+//            Log.d("SaveUser", "Surname: " + user.getSurname());
+//            Log.d("SaveUser", "Email: " + user.getEmail());
+//            Log.d("SaveUser", "Birthday: " + user.getBirthday());
+//            Log.d("SaveUser", "Phone: " + user.getPhone());
 
         });
 
