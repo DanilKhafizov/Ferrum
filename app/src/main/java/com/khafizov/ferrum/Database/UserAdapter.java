@@ -3,12 +3,15 @@ package com.khafizov.ferrum.Database;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.khafizov.ferrum.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -26,7 +29,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_card, parent, false);
         return new UserViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
@@ -36,8 +38,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.userPhone.setText(user.getPhone());
         holder.userRole.setText(user.getRole());
         holder.userEmail.setText(user.getEmail());
-        // Здесь заполните остальные элементы интерфейса к карточки пользователя данными из объекта User,
-        // используя методы доступа к соответствующим полям.
+        // Очистить предыдущее изображение, если оно было загружено ранее
+//        Glide.with(holder.itemView.getContext()).clear(holder.userPhoto);
+
+        // Загрузка и отображение изображения пользователя, только если путь к изображению существует
+        if (user.getPhotoUrl() != null) {
+            Picasso.get().load(user.getPhotoUrl()).into(holder.userPhoto);
+        } else {
+            // Если у пользователя нет фотографии, отображайте изображение по умолчанию
+            holder.userPhoto.setImageResource(R.drawable.default_image);
+        }
+
     }
 
     @Override
@@ -56,6 +67,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         public TextView userPhone;
         public TextView userRole;
         public TextView userEmail;
+        public ImageView userPhoto;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +77,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             userPhone = itemView.findViewById(R.id.user_phone);
             userRole = itemView.findViewById(R.id.user_role);
             userEmail = itemView.findViewById(R.id.user_email);
+            userPhoto = itemView.findViewById(R.id.user_image);
             // Здесь найдите остальные элементы интерфейса карточки пользователя по их идентификаторам
         }
     }

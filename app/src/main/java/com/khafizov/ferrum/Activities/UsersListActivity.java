@@ -24,8 +24,6 @@ public class UsersListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +32,12 @@ public class UsersListActivity extends AppCompatActivity {
         setupRecyclerView();
         loadAllUsers();
     }
-
     private void setupRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         userAdapter = new UserAdapter();
         recyclerView.setAdapter(userAdapter);
     }
-
     private void loadAllUsers() {
         AsyncTask<Void, Void, List<User>> loadUsersTask = new AsyncTask<Void, Void, List<User>>() {
             @Override
@@ -50,11 +46,11 @@ public class UsersListActivity extends AppCompatActivity {
                 UserDao userDao = appDatabase.userDao();
                 return userDao.getAllUsers();
             }
-
             @Override
             protected void onPostExecute(List<User> userList) {
                 if (userList != null && !userList.isEmpty()) {
                     userAdapter.setUserList(userList);
+                    userAdapter.notifyDataSetChanged(); // Обновление списка после загрузки данных
                 }
             }
         };

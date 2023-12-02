@@ -15,8 +15,9 @@ import java.util.Date;
         private String email;
        private String birthday;
        private String phone;
-       private String role;
+       private String role = "Пользователь";
        private String photoUrl;
+//       private boolean isPhotoCropped;
 
 
         public User() {
@@ -85,5 +86,13 @@ import java.util.Date;
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
+
+//    public boolean isPhotoCropped() {
+//        return isPhotoCropped;
+//    }
+//
+//    public void setPhotoCropped(boolean photoCropped) {
+//        isPhotoCropped = photoCropped;
+//    }
 }
 

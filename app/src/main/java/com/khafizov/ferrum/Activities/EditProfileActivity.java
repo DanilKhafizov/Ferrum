@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +48,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         backBtn.setOnClickListener(v -> showProfileActivity() );
 
+//        sharedPref();
 
 //        editImageBtn.setOnClickListener(v -> {
 //            openGallery();
@@ -56,6 +59,15 @@ public class EditProfileActivity extends AppCompatActivity {
             String surname = newSurname.getText().toString();
             String birthday = newBirthday.getText().toString();
             String phone = newPhone.getText().toString();
+
+            // Сохраняем значения в SharedPreferences
+//            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putString("name", name);
+//            editor.putString("surname", surname);
+//            editor.putString("birthday", birthday);
+//            editor.putString("phone", phone);
+//            editor.apply();
 
             String userEmail = mAuth.getCurrentUser().getEmail();
             updateUserInfo(userEmail, name, surname, birthday, phone);
@@ -77,6 +89,21 @@ public class EditProfileActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+//    private void sharedPref(){
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+//        String name = sharedPreferences.getString("name", "");
+//        String surname = sharedPreferences.getString("surname", "");
+//        String birthday = sharedPreferences.getString("birthday", "");
+//        String phone = sharedPreferences.getString("phone", "");
+//
+//        // Установка значений в EditText в качестве текста-подсказки
+//        newName.setText(name);
+//        newSurname.setText(surname);
+//        newBirthday.setText(birthday);
+//        newPhone.setText(phone);
+//    }
+
     public void updateUserInfo(String email, String name, String surname, String birthday, String phone) {
         AsyncTask.execute(() -> {
             AppDatabase appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "FerrumDatabase").build();
@@ -85,15 +112,19 @@ public class EditProfileActivity extends AppCompatActivity {
             if (user != null) {
                 if (name != null && !name.isEmpty()) {
                     user.setName(name);
+                    newName.setText(user.getName());
                 }
                 if (surname != null && !surname.isEmpty()) {
                     user.setSurname(surname);
+                    newSurname.setText(user.getSurname());
                 }
                 if (birthday != null && !birthday.isEmpty()) {
                     user.setBirthday(birthday);
+                    newBirthday.setText(user.getBirthday());
                 }
                 if (phone != null && !phone.isEmpty()) {
                     user.setPhone(phone);
+                    newPhone.setText(user.getPhone());
                 }
                 userDao.updateUser(user);
             }
