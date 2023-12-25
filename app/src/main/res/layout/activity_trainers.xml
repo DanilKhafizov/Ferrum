@@ -222,6 +222,7 @@
         app:itemRippleColor="@color/selected_block"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:itemTextColor="@color/nav_menu_selector"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_menu" />
 

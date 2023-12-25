@@ -226,6 +226,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:itemRippleColor="@color/selected_block"
+        app:itemTextColor="@color/nav_menu_selector"
         app:itemIconTint="@color/nav_menu_selector"
         app:menu="@menu/bottom_menu"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

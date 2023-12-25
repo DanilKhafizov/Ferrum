@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/bottom_home"
-          android:title="Главная"
-          android:icon="@drawable/home_icon"
+        android:title="Главная"
+        android:icon="@drawable/home_icon"
         android:checked="true"
-        android:iconTint="@color/nav_menu_selector"/>
-
+        app:iconTint="@color/nav_menu_selector"/>
     <item
         android:title="Тренеры"
         android:icon="@drawable/trainers_icon"
-        android:iconTint="@color/nav_menu_selector"
+        app:iconTint="@color/nav_menu_selector"
         android:checked="false"
         android:id="@+id/bottom_trainers"/>
     <item
         android:title="Услуги"
         android:icon="@drawable/services_icon"
-        android:iconTint="@color/nav_menu_selector"
+        app:iconTint="@color/nav_menu_selector"
         android:checked="false"
         android:id="@+id/bottom_services"/>
     <item
         android:title="Профиль"
         android:icon="@drawable/profile_icon"
-        android:iconTint="@color/nav_menu_selector"
+        app:iconTint="@color/nav_menu_selector"
         android:checked="false"
         android:id="@+id/bottom_profile"/>
 </menu>
