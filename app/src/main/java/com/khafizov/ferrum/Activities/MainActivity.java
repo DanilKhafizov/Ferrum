@@ -1,33 +1,36 @@
 package com.khafizov.ferrum.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Slide;
+import android.os.Handler;
 
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.khafizov.ferrum.R;
+import com.khafizov.ferrum.adapters.ImageSliderAdapter;
 
-import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageSlider imageSlider = findViewById(R.id.imageSlider);
-        ArrayList<SlideModel> slideModels = new ArrayList<>();
+
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        int[] images = {R.drawable.pavel, R.drawable.jason, R.drawable.sarah};
+        ImageSliderAdapter adapter = new ImageSliderAdapter(this, images);
+        viewPager.setAdapter(adapter);
+
+        startImageSliderAutoScroll(viewPager, images.length);
+
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_menu);
         bottomNavigationView.setSelectedItemId(R.id.bottom_home);
@@ -52,13 +55,29 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-
-        slideModels.add(new SlideModel(R.drawable.pavel, ScaleTypes.FIT));
-        slideModels.add(new SlideModel(R.drawable.jason, ScaleTypes.FIT));
-        slideModels.add(new SlideModel(R.drawable.sarah, ScaleTypes.FIT));
-
-        imageSlider.setImageList(slideModels, ScaleTypes.FIT);
     }
+
+
+    private int currentPage = 0;
+
+    private void startImageSliderAutoScroll(ViewPager viewPager, int imageCount) {
+        final Handler handler = new Handler();
+        final Runnable update = () -> {
+            if (currentPage == imageCount) {
+                currentPage = 0;
+            }
+            viewPager.setCurrentItem(currentPage++, true);
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 1000, 4000); // Интервал прокрутки в миллисекундах
+    }
+
+
 
 
     @Override

@@ -60,7 +60,6 @@
 
 
         <RelativeLayout
-            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:orientation="horizontal"
@@ -75,15 +74,10 @@
                 app:cardCornerRadius="20dp"
                 app:cardElevation="20dp">
 
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/imageSlider"
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:iss_auto_cycle="true"
-                    app:iss_corner_radius="20"
-                    app:iss_delay="1000"
-                    app:iss_period="1000"
-                    app:iss_title_background="@drawable/pavel" />
+                    android:layout_height="wrap_content" />
 
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
