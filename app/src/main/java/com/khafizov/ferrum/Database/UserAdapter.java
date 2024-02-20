@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.khafizov.ferrum.R;
+import com.khafizov.ferrum.models.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,8 +43,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 //        Glide.with(holder.itemView.getContext()).clear(holder.userPhoto);
 
         // Загрузка и отображение изображения пользователя, только если путь к изображению существует
-        if (user.getPhotoUrl() != null) {
-            Picasso.get().load(user.getPhotoUrl()).into(holder.userPhoto);
+        if (user.getPhoto() != null) {
+            Picasso.get().load(user.getPhoto()).into(holder.userPhoto);
         } else {
             // Если у пользователя нет фотографии, отображайте изображение по умолчанию
             holder.userPhoto.setImageResource(R.drawable.default_image);

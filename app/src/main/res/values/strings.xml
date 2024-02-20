@@ -1,19 +1,15 @@
 <resources>
     <string name="app_name">Ferrum</string>
-    <string name="ek_img_content">ExportKit Image</string>
-    <string name="_____________________string">- ""</string>
-    <string name="_11_11_string">11:11</string>
-    <string name="enjoy_text_string">"  ,       "</string>
-    <string name="reg_string">Зарегистрироваться</string>
-    <string name="reg1_string">Регистрация</string>
-    <string name="autho_string">Авторизация</string>
+    <string name="sign_up_string">Зарегистрироваться</string>
+    <string name="sign_up_string1">Регистрация</string>
+    <string name="sign_in_string1">Авторизация</string>
     <string name="dont_have_account_string">Нет уч. записи</string>
     <string name="sign_in_string">Войти</string>
     <string name="have_account_string">Уже есть аккаунт</string>
     <string name="enter_details_string">Введите свои данные, чтобы продолжить</string>
-    <string name="reg_details_string">Зарегистрируйтесь, чтобы пользоваться приложением</string>
+    <string name="signIn_details_string">Зарегистрируйтесь, чтобы пользоваться приложением</string>
     <string name="manage_text_string">Управляйте своими тренировками</string>
-    <string name="enjoy_reg_text">“Наслаждайтесь процессом тренировки, и результаты не заставят себя долго ждать!”</string>
+    <string name="enjoy_reg_text">Наслаждайтесь процессом тренировки, и результаты не заставят себя долго ждать!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="ferrum_name">Фитнес-клуб "Ferrum"</string>
     <string name="invite_text">Приглашаем на первую БЕСПЛАТНУЮ тренировку в наш клуб!</string>
