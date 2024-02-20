@@ -62,15 +62,18 @@ public class RegActivity extends AppCompatActivity {
         }
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    if (user != null) {
-                        saveUserToDatabase(user.getUid());
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            saveUserToDatabase(user.getUid());
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(RegActivity.this, "Ошибка при получении текущего пользователя", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(RegActivity.this, "Отказано в регистрации. Заполните все поля и проверьте правильность заполнения блоков!", Toast.LENGTH_SHORT).show();
-                        return;
+                        Toast.makeText(RegActivity.this, "Ошибка при регистрации. Проверьте правильность заполнения полей!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
