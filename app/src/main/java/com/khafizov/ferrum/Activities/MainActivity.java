@@ -1,32 +1,66 @@
 package com.khafizov.ferrum.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.khafizov.ferrum.R;
 import com.khafizov.ferrum.adapters.ImageSliderAdapter;
+import com.khafizov.ferrum.models.User;
+import com.khafizov.ferrum.utilities.Constants;
+import com.khafizov.ferrum.utilities.PreferenceManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    private PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        preferenceManager = new PreferenceManager(getApplicationContext());
+        loadUserData();
 
         ViewPager viewPager = findViewById(R.id.viewPager);
         int[] images = {R.drawable.pavel, R.drawable.jason, R.drawable.sarah};
         ImageSliderAdapter adapter = new ImageSliderAdapter(this, images);
         viewPager.setAdapter(adapter);
+
+//        SharedPreferences sharedPreferences = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+//        if (sharedPreferences.contains("name")) {
+//            String name = sharedPreferences.getString("name", "");
+//            String surname = sharedPreferences.getString("surname", "");
+//            String email = sharedPreferences.getString("email", "");
+//            User user = new User(name, surname, email);
+//            // Сохраните данные пользователя в глобальной переменной или ViewModel
+//        } else {
+//            // Загрузите данные пользователя из Firestore и сохраните в SharedPreferences
+//        }
+
+//        firestore.loadUserData(new FirestoreCallback() {
+//            @Override
+//            public void onCallback(User user) {
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putString("name", user.getName());
+//                editor.putString("email", user.getEmail());
+//                editor.apply();
+//                // Сохраните данные пользователя в глобальной переменной или ViewModel
+//                viewModel.setUser(user); // Пример использования ViewModel
+//            }
+//        });
+//    }
 
         startImageSliderAutoScroll(viewPager, images.length);
 
@@ -75,6 +109,35 @@ public class MainActivity extends AppCompatActivity {
                 handler.post(update);
             }
         }, 1000, 4000); // Интервал прокрутки в миллисекундах
+    }
+
+    private void loadUserData() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        db.collection(Constants.KEY_COLLECTION_USERS).document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String name = documentSnapshot.getString(Constants.KEY_NAME);
+                        String surname = documentSnapshot.getString(Constants.KEY_SURNAME);
+                        String email = documentSnapshot.getString(Constants.KEY_EMAIL);
+                        String birthday = documentSnapshot.getString(Constants.KEY_BIRTHDAY);
+                        String phone = documentSnapshot.getString(Constants.KEY_PHONE);
+
+                        // Сохранение данных в SharedPreferences через PreferenceManager
+                        preferenceManager.putString(Constants.KEY_NAME, name);
+                        preferenceManager.putString(Constants.KEY_SURNAME, surname);
+                        preferenceManager.putString(Constants.KEY_EMAIL, email);
+                        preferenceManager.putString(Constants.KEY_BIRTHDAY, birthday);
+                        preferenceManager.putString(Constants.KEY_PHONE, phone);
+                    }
+                })
+                .addOnFailureListener(e -> showToast(e.getMessage()));
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 
