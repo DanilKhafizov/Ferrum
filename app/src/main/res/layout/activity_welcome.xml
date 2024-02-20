@@ -86,18 +86,20 @@
                 android:textColor="@color/black"
                 android:textSize="18dp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:background="@android:color/transparent"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_selector"
                 android:onClick="reg_btn_Click"
-                android:text="@string/reg_string"
+                android:text="@string/sign_up_string"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="#0052FF"
-                android:textSize="18dp" />
+                android:textColor="@color/_reg_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <View
@@ -122,18 +124,19 @@
                 android:textColor="@color/black"
                 android:textSize="18dp" />
 
-            <Button
-                android:id="@+id/enter_btn"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/SignInBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:background="@android:color/transparent"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/button_selector"
                 android:onClick="reg1_btn_Click"
                 android:text="@string/sign_in_string"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="18dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
