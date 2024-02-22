@@ -2,7 +2,9 @@ package com.khafizov.ferrum.Registration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ public class EnterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextInputEditText editTextLogin, editTextPassword;
     private MaterialButton signInBtn;
+    private ImageButton showPasswordBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +33,34 @@ public class EnterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
-//        if(preferenceManager.getBoolean(Constants.KEY_IS_SIGNED_IN)){
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+
         mAuth = FirebaseAuth.getInstance();
 
         editTextLogin = findViewById(R.id.input_email);
         editTextPassword = findViewById(R.id.input_password);
         signInBtn = findViewById(R.id.SignInBtn);
+        showPasswordBtn = findViewById(R.id.show_password_btn);
+
+        showPasswordBtn.setOnClickListener(v -> {
+            // Логика для показа/скрытия пароля
+
+            int inputType = editTextPassword.getInputType();
+
+            if (inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                showPasswordBtn.setImageResource(R.drawable.ic_hide); // Изменить иконку на показать пароль
+            } else {
+                editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                showPasswordBtn.setImageResource(R.drawable.ic_show); // Изменить иконку на скрыть пароль
+            }
+
+            // Установить курсор в конец текста
+            editTextPassword.setSelection(editTextPassword.getText().length());
+        });
+
+        ImageButton backButton = findViewById(R.id.back_btn);
+
+        backButton.setOnClickListener(v -> showWelcomeActivity());
 
         signInBtn.setOnClickListener(v -> {
             String email = editTextLogin.getText().toString();
@@ -89,6 +110,10 @@ public class EnterActivity extends AppCompatActivity {
                         preferenceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
                         preferenceManager.putString(Constants.KEY_USER_ID, documentSnapshot.getId());
                         preferenceManager.putString(Constants.KEY_NAME, documentSnapshot.getString(Constants.KEY_NAME));
+                        preferenceManager.putString(Constants.KEY_SURNAME, documentSnapshot.getString(Constants.KEY_SURNAME));
+                        preferenceManager.putString(Constants.KEY_EMAIL, documentSnapshot.getString(Constants.KEY_EMAIL));
+                        preferenceManager.putString(Constants.KEY_BIRTHDAY, documentSnapshot.getString(Constants.KEY_BIRTHDAY));
+                        preferenceManager.putString(Constants.KEY_PHONE, documentSnapshot.getString(Constants.KEY_PHONE));
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -115,6 +140,13 @@ public class EnterActivity extends AppCompatActivity {
 //            // binding.progressBar.setVisibility(View.INVISIBLE);
 //        }
 //    }
+
+    public void showWelcomeActivity()
+    {
+        Intent intent = new Intent(EnterActivity.this, WelcomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     public void reg_btn_Click(View view)
     {
