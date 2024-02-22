@@ -1,8 +1,5 @@
 package com.khafizov.ferrum.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -16,10 +13,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.khafizov.ferrum.R;
+import com.khafizov.ferrum.Registration.WelcomeActivity;
 import com.khafizov.ferrum.utilities.Constants;
 import com.khafizov.ferrum.utilities.PreferenceManager;
 
@@ -27,9 +27,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public static TextView tvSurname, tvName, tvBirthday, tvEmail, tvPhone, TextView;
-    private ImageButton langBtn, themeBtn, styleBtn, backBtn, birthdayAdd, phoneAdd, userImageBtn;
+    private ImageButton langBtn, themeBtn, styleBtn, backBtn, birthdayAdd, phoneAdd, userImageBtn, signOutBtn;
     private Button editBtn, loadUsersBtn;
-    private FirebaseAuth mAuth;
     private PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +41,18 @@ public class ProfileActivity extends AppCompatActivity {
         tvBirthday = findViewById(R.id.birthday_tv);
         tvEmail = findViewById(R.id.tv_email);
         tvPhone = findViewById(R.id.phone_tv);
-        langBtn = findViewById(R.id.go_lang_im_btn);
-        themeBtn = findViewById(R.id.go_theme_im_btn);
-        styleBtn = findViewById(R.id.go_style_im_btn);
+        langBtn = findViewById(R.id.go_user_guide);
+        themeBtn = findViewById(R.id.go_terms_of_use);
+        styleBtn = findViewById(R.id.go_club_rules);
         editBtn = findViewById(R.id.edit_btn);
         backBtn = findViewById(R.id.back_btn);
         birthdayAdd = findViewById(R.id.birthday_add_im_btn);
         phoneAdd = findViewById(R.id.phone_add_im_btn);
         loadUsersBtn = findViewById(R.id.load_users_btn);
+        signOutBtn = findViewById(R.id.signOutBtn);
         userImageBtn = findViewById(R.id.user_im_btn);
-        mAuth = FirebaseAuth.getInstance();
         preferenceManager = new PreferenceManager(getApplicationContext());
-       getUserDataFromFirestore();
-
+        getUserDataFromFirestore();
 
         loadUsersBtn.setOnClickListener(v -> showUsersListActivity());
 
@@ -63,22 +61,18 @@ public class ProfileActivity extends AppCompatActivity {
             birthdayAdd.setVisibility(View.GONE);
         });
 
+        signOutBtn.setOnClickListener(v -> logout());
 
-
-        phoneAdd.setOnClickListener(v -> {
-            showPhoneNumberDialog();
-
-        });
+        phoneAdd.setOnClickListener(v -> showPhoneNumberDialog());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.main_menu);
         bottomNavigationView.setSelectedItemId(R.id.bottom_profile);
 
         langBtn.setOnClickListener(v ->  showSettingsActivity());
-        themeBtn.setOnClickListener(v -> showSettingsActivity() );
-        styleBtn.setOnClickListener(v -> showSettingsActivity() );
-        editBtn.setOnClickListener(v -> {
-            showEditProfileActivity();
-        });
+        themeBtn.setOnClickListener(v -> showSettingsActivity());
+        styleBtn.setOnClickListener(v -> showSettingsActivity());
+
+        editBtn.setOnClickListener(v -> showEditProfileActivity());
 
         backBtn.setOnClickListener(v -> showMainActivity() );
 
@@ -103,6 +97,22 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
     }
+
+    private void logout() {
+        new AlertDialog.Builder(this)
+                .setTitle("Подтверждение")
+                .setMessage("Вы уверены, что хотите выйти из аккаунта?")
+                .setPositiveButton("Да", (dialog, which) -> {
+                    showToast("Выход из аккаунта...");
+                    FirebaseAuth.getInstance().signOut();
+                    preferenceManager.clearPreferences();
+                    startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
+                    finish();
+                })
+                .setNegativeButton("Нет", (dialog, which) -> {})
+                .show();
+    }
+
     private void showPhoneNumberDialog(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -114,6 +124,7 @@ public class ProfileActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", (dialog, which) -> {
             String phoneNumber = input.getText().toString();
             if (!TextUtils.isEmpty(phoneNumber)) {
+                preferenceManager.putString(Constants.KEY_PHONE, phoneNumber);
                 tvPhone.setText(phoneNumber);
                 phoneAdd.setVisibility(View.GONE); // Скрыть кнопку "+"
             }
@@ -135,7 +146,10 @@ public class ProfileActivity extends AppCompatActivity {
             // Обновление информации в базе данных
             db.collection(Constants.KEY_COLLECTION_USERS).document(userId)
                     .update("birthday", selectedDate)
-                    .addOnSuccessListener(aVoid -> showToast("Дата рождения обновлена успешно"))
+                    .addOnSuccessListener(aVoid -> {
+                            preferenceManager.putString(Constants.KEY_BIRTHDAY, selectedDate);
+                            showToast("Дата рождения обновлена успешно");
+                    })
                     .addOnFailureListener(e -> showToast("Ошибка при обновлении даты рождения: " + e.getMessage()));
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this, dateSetListener, 2022, 0, 1);
@@ -168,18 +182,24 @@ public class ProfileActivity extends AppCompatActivity {
         String email = preferenceManager.getString(Constants.KEY_EMAIL);
         String birthday = preferenceManager.getString(Constants.KEY_BIRTHDAY);
         String phone = preferenceManager.getString(Constants.KEY_PHONE);
-                        // Обновление элементов TextView
-                        if (birthday != null && !birthday.isEmpty()) {
-                            tvBirthday.setText(birthday);
-                        }
-                        // Обновление элементов TextView
-                        if (phone != null && !phone.isEmpty()) {
-                            tvPhone.setText(phone);
-                        }
-                        tvName.setText(name);
-                        tvSurname.setText(surname);
-                        tvEmail.setText(email);
-                    }
+
+        if (name != null && !name.isEmpty()) {
+            tvName.setText(name);
+        }
+        if (surname != null && !surname.isEmpty()) {
+            tvSurname.setText(surname);
+        }
+        if (email != null && !email.isEmpty()) {
+            tvEmail.setText(email);
+        }
+        if (birthday != null && !birthday.isEmpty()) {
+            tvBirthday.setText(birthday);
+        }
+        if (phone != null && !phone.isEmpty()) {
+            tvPhone.setText(phone);
+        }
+    }
+
     private void showToast(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
@@ -198,7 +218,6 @@ public class ProfileActivity extends AppCompatActivity {
         finish();
     }
 
-
     public void showEditProfileActivity()
     {
         Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
@@ -212,7 +231,6 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 
     @Override
     public void onBackPressed() {
