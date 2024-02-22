@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         preferenceManager = new PreferenceManager(getApplicationContext());
-        loadUserData();
 
         ViewPager viewPager = findViewById(R.id.viewPager);
         int[] images = {R.drawable.pavel, R.drawable.jason, R.drawable.sarah};
@@ -111,30 +110,6 @@ public class MainActivity extends AppCompatActivity {
         }, 1000, 4000); // Интервал прокрутки в миллисекундах
     }
 
-    private void loadUserData() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        db.collection(Constants.KEY_COLLECTION_USERS).document(userId)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        String name = documentSnapshot.getString(Constants.KEY_NAME);
-                        String surname = documentSnapshot.getString(Constants.KEY_SURNAME);
-                        String email = documentSnapshot.getString(Constants.KEY_EMAIL);
-                        String birthday = documentSnapshot.getString(Constants.KEY_BIRTHDAY);
-                        String phone = documentSnapshot.getString(Constants.KEY_PHONE);
-
-                        // Сохранение данных в SharedPreferences через PreferenceManager
-                        preferenceManager.putString(Constants.KEY_NAME, name);
-                        preferenceManager.putString(Constants.KEY_SURNAME, surname);
-                        preferenceManager.putString(Constants.KEY_EMAIL, email);
-                        preferenceManager.putString(Constants.KEY_BIRTHDAY, birthday);
-                        preferenceManager.putString(Constants.KEY_PHONE, phone);
-                    }
-                })
-                .addOnFailureListener(e -> showToast(e.getMessage()));
-    }
 
     private void showToast(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
