@@ -28,15 +28,16 @@
             android:src="@drawable/back_icon_profile"
             android:background="@android:color/transparent"/>
 
+
         <ImageButton
-            android:id="@+id/share_btn"
+            android:id="@+id/signOutBtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="45dp"
             android:layout_marginEnd="35dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/share_icon" />
+            android:src="@drawable/ic_logout" />
 
 
 
@@ -88,7 +89,7 @@
         app:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_textStyle"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_club_rules"/>
 
 
     <TextView
@@ -269,7 +270,7 @@
         android:backgroundTint="@color/white"
         android:paddingStart="30dp"
         android:paddingTop="3dp"
-        android:text="@string/settings_text"
+        android:text="@string/documents_text"
         android:textColor="@color/black"
         android:textSize="12dp"
         android:textStyle="bold"
@@ -288,7 +289,7 @@
         app:layout_constraintTop_toBottomOf="@+id/settings_tv" />
 
     <TextView
-        android:id="@+id/tv_language"
+        android:id="@+id/tv_user_guide"
         android:layout_width="wrap_content"
         android:textColor="@color/black"
         android:layout_height="wrap_content"
@@ -296,7 +297,7 @@
         android:focusable="false"
         app:layout_constraintLeft_toRightOf="@id/language_icon"
         app:layout_constraintTop_toBottomOf="@+id/settings_tv"
-        android:text="@string/language_text"
+        android:text="@string/user_guide_text"
         android:textSize="18dp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
@@ -310,18 +311,18 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/dark_theme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_language" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_guide" />
 
     <TextView
-        android:id="@+id/tv_dark_theme"
+        android:id="@+id/tv_terms_of_use"
         android:textColor="@color/black"
         android:inputType="none"
         android:focusable="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/language_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_language"
-        android:text="@string/dark_theme_text"
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_guide"
+        android:text="@string/privacy_policy_text2"
         android:textSize="18dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
@@ -335,16 +336,16 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/textstyle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_dark_theme" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_terms_of_use" />
 
     <TextView
-        android:id="@+id/tv_textStyle"
+        android:id="@+id/tv_club_rules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintLeft_toRightOf="@id/language_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_dark_theme"
-        android:text="@string/textStyle_text"
+        app:layout_constraintTop_toBottomOf="@+id/tv_terms_of_use"
+        android:text="@string/club_rules_text"
         android:inputType="none"
         android:focusable="false"
         android:layout_marginTop="20dp"
@@ -354,7 +355,7 @@
 
 
     <ImageButton
-        android:id="@+id/go_lang_im_btn"
+        android:id="@+id/go_user_guide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -368,21 +369,22 @@
         app:layout_constraintTop_toBottomOf="@+id/settings_tv" />
 
     <ImageButton
-        android:id="@+id/go_theme_im_btn"
+        android:id="@+id/go_terms_of_use"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="4dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/go_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="fitEnd"
-        android:layout_marginBottom="5dp"
         android:onClick="showSettingsActivity"
-        app:layout_constraintStart_toStartOf="@+id/dark_theme_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_dark_theme" />
+        android:scaleType="fitEnd"
+        android:src="@drawable/go_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_terms_of_use"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/dark_theme_icon" />
 
     <ImageButton
-        android:id="@+id/go_style_im_btn"
+        android:id="@+id/go_club_rules"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -394,7 +396,7 @@
         android:layout_marginBottom="5dp"
         android:onClick="showSettingsActivity"
         app:layout_constraintStart_toStartOf="@+id/textStyle_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_textStyle" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_club_rules" />
 
 
 
