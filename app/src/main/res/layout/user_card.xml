@@ -4,7 +4,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,21 +20,22 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/user_image"
-            android:layout_width="70dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
+            android:scaleType="fitXY"
+            app:riv_oval="true"
             android:layout_marginStart="10dp"
+            android:contentDescription="@string/todo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/default_image" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/name_text"
             android:textSize="12sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -47,7 +47,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/surname_text"
             android:textSize="12sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -61,7 +60,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:text="@string/role_text"
             android:textSize="12sp"
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/user_name"
@@ -72,7 +70,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/birthday_text"
             android:textSize="12sp"
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="@id/user_image"
@@ -84,7 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="20dp"
-            android:text="@string/phone_text"
             android:textSize="12sp"
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/user_name"
@@ -96,7 +92,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:text="@string/email_text"
             android:textSize="12sp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/user_image"

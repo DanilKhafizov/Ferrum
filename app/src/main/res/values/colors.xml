@@ -10,7 +10,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="_bg__reg___step_1_color">#000000</color>
     <color name="_11_11_color">#FFFFFF</color>
     <color name="_reg_color">#0052FF</color>
@@ -22,4 +21,5 @@
     <color name="selected_block">#4299FF</color>
     <color name="colorIcon">#808080</color>
     <color name="blue">#0047FF</color>
+    <color name="light_grey">#CFDBD5</color>
 </resources>

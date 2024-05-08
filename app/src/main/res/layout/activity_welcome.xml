@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/main_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="68dp"
-        android:src="@drawable/main_icon"
+        android:src="@drawable/ferrum_logo"
+        android:contentDescription="@string/todo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +25,7 @@
         android:text="@string/enjoy_reg_text"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +50,7 @@
             android:text="@string/manage_text_string"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
@@ -61,12 +62,12 @@
             android:text="@string/enter_details_string"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#CFDBD5"
+            android:background="@color/light_grey"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="10dp"/>
 
@@ -84,28 +85,30 @@
                 android:layout_marginStart="15dp"
                 android:text="@string/dont_have_account_string"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/sign_up_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/button_selector"
-                android:onClick="reg_btn_Click"
                 android:text="@string/sign_up_string"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/_reg_color"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
+
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#CFDBD5"
+            android:background="@color/light_grey"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 
@@ -122,29 +125,29 @@
                 android:layout_marginStart="15dp"
                 android:text="@string/have_account_string"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/SignInBtn"
+                android:id="@+id/sign_in_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/button_selector"
-                android:onClick="reg1_btn_Click"
                 android:text="@string/sign_in_string"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
 
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#CFDBD5"
+            android:background="@color/light_grey"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="40dp"/>
 

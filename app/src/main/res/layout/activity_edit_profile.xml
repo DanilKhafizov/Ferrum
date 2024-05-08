@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main"
-    tools:context=".Activities.EditProfileActivity">
+    tools:context=".activities.EditProfileActivity">
 
     <RelativeLayout
         android:id="@+id/frame_services"
@@ -23,21 +23,40 @@
             android:layout_marginStart="35dp"
             android:layout_marginTop="45dp"
             android:src="@drawable/back_icon_profile"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/todo" />
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/user_image"
+    <FrameLayout
+        android:id="@+id/frame_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/default_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frame_services"
-        android:layout_marginTop="20dp"
-        android:background="@android:color/transparent"/>
+        android:layout_marginTop="20dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/user_image"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:background="@drawable/default_image"
+            android:scaleType="fitXY"
+            app:riv_oval="true"/>
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/rotateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/frame_image"
+        app:layout_constraintStart_toEndOf="@+id/frame_image"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_rotate"/>
 
     <Button
         android:id="@+id/edit_image_btn"
@@ -52,7 +71,7 @@
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_image" />
+        app:layout_constraintTop_toBottomOf="@+id/frame_image" />
 
     <TextView
         android:id="@+id/name_tv"
@@ -70,11 +89,11 @@
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
+        android:inputType="text"
         android:textColor="@color/black"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:textSize="15sp"
-        android:hint="Введите имя"
-        android:textColorHint="@color/hint_color"
         android:background="@drawable/bg_profile_ed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,10 +116,10 @@
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:textColor="@color/black"
+        android:inputType="text"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:textSize="15sp"
-        android:hint="Введите фамилию"
-        android:textColorHint="@color/hint_color"
         android:background="@drawable/bg_profile_ed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,9 +143,8 @@
         android:layout_marginTop="5dp"
         android:textColor="@color/black"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:textSize="15sp"
-        android:hint="Введите дату рождения"
-        android:textColorHint="@color/hint_color"
         android:inputType="none"
         android:focusable="false"
         android:background="@drawable/bg_profile_ed"
@@ -152,13 +170,14 @@
         android:layout_marginTop="5dp"
         android:textColor="@color/black"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:textSize="15sp"
-        android:hint="Введите номер телефона"
-        android:textColorHint="@color/hint_color"
+        android:inputType="number"
         android:background="@drawable/bg_profile_ed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/phone_tv"
+        tools:ignore="TextFields" />
 
 
     <Button
@@ -171,6 +190,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_phone_ed" />
+
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/cancel_text"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

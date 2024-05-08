@@ -1,5 +1,4 @@
 package com.khafizov.ferrum.utilities;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 

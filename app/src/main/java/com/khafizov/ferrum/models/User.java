@@ -1,6 +1,7 @@
 package com.khafizov.ferrum.models;
 
 public class User {
+    private String id;
     private String name;
     private String surname;
     private String email;
@@ -10,23 +11,15 @@ public class User {
     private String photo;
 
     public User() {
-        // Default constructor required for Firestore
     }
 
-    public User(String name, String surname, String email) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
 
+    public String getId() {
+        return id;
     }
 
-    public User(String name, String surname, String email, String birthday, String phone) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.birthday = birthday;
-        this.phone = phone;
-
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
