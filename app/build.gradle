@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'com.github.santalu:maskara:1.0.0'
 
 
     //Firebase

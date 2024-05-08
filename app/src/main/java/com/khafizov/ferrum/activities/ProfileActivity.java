@@ -14,9 +14,11 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,10 @@ import com.khafizov.ferrum.utilities.Constants;
 import com.khafizov.ferrum.utilities.ImageEncoder;
 import com.khafizov.ferrum.utilities.PreferenceManager;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.santalu.maskara.Mask;
+import com.santalu.maskara.MaskChangedListener;
+import com.santalu.maskara.widget.MaskEditText;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
@@ -220,11 +226,14 @@ public class ProfileActivity extends AppCompatActivity {
         String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
         builder.setTitle("Введите номер телефона");
-        final EditText input = new EditText(ProfileActivity.this);
-        input.setInputType(InputType.TYPE_CLASS_PHONE);
-        builder.setView(input);
+
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_phone_number, null);
+        MaskEditText phoneEd = dialogView.findViewById(R.id.phone_ed);
+
+        builder.setView(dialogView);
+
         builder.setPositiveButton("OK", (dialog, which) -> {
-            String phoneNumber = input.getText().toString();
+            String phoneNumber = phoneEd.getMasked();
             if (!TextUtils.isEmpty(phoneNumber)) {
                 preferenceManager.putString(Constants.KEY_PHONE, phoneNumber);
                 tvPhone.setText(phoneNumber);
@@ -235,7 +244,9 @@ public class ProfileActivity extends AppCompatActivity {
                     .addOnSuccessListener(aVoid -> showToast("Номер телефона обновлен успешно"))
                     .addOnFailureListener(e -> showToast("Ошибка при обновлении номера телефона: " + e.getMessage()));
         });
+
         builder.setNegativeButton("Отмена", (dialog, which) -> dialog.cancel());
+
         builder.show();
     }
     private void showDatePickerDialog() {

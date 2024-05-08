@@ -7,6 +7,8 @@
     tools:context=".activities.ProfileActivity"
     android:background="@drawable/bg_main">
 
+
+
     <RelativeLayout
         android:id="@+id/frame_services"
         android:layout_width="match_parent"
